@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prisma-generate": "pnpm dlx prisma generate --schema=./src/data/schema.prisma"
+    "prisma-generate": "pnpm dlx prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^5.3.1",

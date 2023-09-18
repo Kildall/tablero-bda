@@ -1,15 +1,17 @@
-import { PrismaClient } from '@prisma/client';
- 
+import { PrismaClient } from "@prisma/client";
+
 const prisma = new PrismaClient();
- 
+
 export default async function prismaExample() {
-  const newUser = await prisma.user.create({
+  const newProduct = await prisma.product.create({
     data: {
-      name: 'Elliott',
-      email: 'xelliottx@example-user.com',
+      name: "Calzones CK x6 u.",
+      description: "Ropa interior",
+      category: "Indumentaria",
+      price: 30000,
     },
   });
- 
-  const users = await prisma.user.findMany();
-  console.log(users)
+
+  const products = await prisma.product.findMany();
+  return products;
 }

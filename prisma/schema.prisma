@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+ 
+model Product {
+  id              Int             @id @default(autoincrement())
+  name            String
+  description     String
+  price           Float
+  category        String
+  orderDetails    OrderDetail[]
+}
+
+model Order {
+  id              Int             @id @default(autoincrement())
+  orderDate       DateTime
+  customerId      Int
+  orderStatus     String
+  customer        Customer        @relation(fields: [customerId], references: [id])
+  orderDetails    OrderDetail[]
+  salesObjectives SalesObjective[] 
+}
+
+model OrderDetail {
+  id            Int     @id @default(autoincrement())
+  orderId       Int
+  productId     Int
+  quantity      Int
+  unitPrice     Float
+  order         Order   @relation(fields: [orderId], references: [id])
+  product       Product @relation(fields: [productId], references: [id])
+}
+
+model Customer {
+  id        Int     @id @default(autoincrement())
+  name      String
+  email     String  @unique
+  address   String
+  city      String
+  country   String
+  orders    Order[]
+}
+
+model SalesObjective {
+  id         Int       @id @default(autoincrement())
+  objective  String
+  targetDate DateTime
+  orderId    Int?
+  order      Order?    @relation(fields: [orderId], references: [id])
+}
