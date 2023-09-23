@@ -14,9 +14,29 @@ export default function LoginForm() {
     setEmail(event.target.value);
   };
 
-  const setLogin = () => {
+  const setLogin = async () => {
     console.log("Email: " + email);
     console.log("Password: " + password);
+
+    const token = btoa(`${email}:${password}`);
+    const authHeader = `Basic ${token}`;
+
+    try {
+      const response = await fetch("/login", {
+        method: "GET", // o el método que corresponda
+        headers: {
+          Authorization: authHeader,
+        },
+      });
+
+      if (response.ok) {
+        // La autenticación fue exitosa, continúa con la lógica de tu aplicación
+      } else {
+        // La autenticación falló, maneja el error
+      }
+    } catch (error) {
+      // Maneja errores de red u otros errores aquí
+    }
   };
 
   return (
