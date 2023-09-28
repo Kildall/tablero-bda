@@ -1,10 +1,12 @@
 import React, { ChangeEvent } from "react";
+import { useRouter } from "next/router";
 import Login from "@/pages/login";
 import Image from "next/image";
 
 export default function LoginForm() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const router = useRouter();
 
   const HandleSetPassword = (event: ChangeEvent<HTMLInputElement>): void => {
     setPassword(event.target.value);
@@ -14,7 +16,8 @@ export default function LoginForm() {
     setEmail(event.target.value);
   };
 
-  const setLogin = async () => {
+  const setLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     console.log("Email: " + email);
     console.log("Password: " + password);
 
@@ -31,9 +34,10 @@ export default function LoginForm() {
 
       if (response.ok) {
         // La autenticación fue exitosa, continúa con la lógica de tu aplicación
-        console.log(response);
+        router.push("/dashboard");
       } else {
         // La autenticación falló, maneja el error
+        alert("Incorrect login details.");
       }
     } catch (error) {
       // Maneja errores de red u otros errores aquí
@@ -42,10 +46,8 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="flex flex-col items-center md:flex-row md:h-screen">
-      <div className="flex items-center justify-center w-full md:w-1/2">
-        <Image src="/cat.jpg" alt="Login Image" width={800} height={600} />
-      </div>
+    <div className="flex flex-col items-center md:flex-row md:h-screen w-screen">
+      <div className="flex items-center justify-center w-full md:w-1/2"></div>
       <div className="flex flex-col items-center justify-center w-full md:w-1/4">
         <div className="w-full max-w-md space-y-8">
           <div>

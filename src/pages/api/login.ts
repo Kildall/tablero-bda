@@ -5,15 +5,13 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     return res.status(405).send({});
   }
   const basicAuth = req.headers["authorization"];
-  console.log("Un texto " + JSON.stringify(req.headers));
   if (!basicAuth || Array.isArray(basicAuth)) {
-    res.status(400).json({ message: "header not set" });
+    res.status(400).send({});
   } else {
     const authValue = basicAuth.split(" ")[1];
     const [user, pwd] = atob(authValue).split(":");
-    if (user === "fran@gmail.com" && pwd === "perez") {
-      console.log("Entro al if");
-      res.redirect("/dashboard");
+    if (user && pwd) {
+      res.status(200).json({ message: "Login successful" });
     }
   }
 }
