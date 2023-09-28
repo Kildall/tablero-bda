@@ -22,8 +22,8 @@ export default function LoginForm() {
     const authHeader = `Basic ${token}`;
 
     try {
-      const response = await fetch("/login", {
-        method: "GET", // o el método que corresponda
+      const response = await fetch("/api/login", {
+        method: "POST", // o el método que corresponda
         headers: {
           Authorization: authHeader,
         },
@@ -31,11 +31,13 @@ export default function LoginForm() {
 
       if (response.ok) {
         // La autenticación fue exitosa, continúa con la lógica de tu aplicación
+        console.log(response);
       } else {
         // La autenticación falló, maneja el error
       }
     } catch (error) {
       // Maneja errores de red u otros errores aquí
+      console.log(`Se ha producido un error: ${error}`);
     }
   };
 
