@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 import { useRouter } from "next/router";
-import Login from "@/pages/login";
+import Login from "@/app/login";
 import Image from "next/image";
 
 export default function LoginForm() {
